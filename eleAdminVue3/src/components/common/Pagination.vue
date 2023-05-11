@@ -12,7 +12,8 @@
     :hide-on-single-page="singleHide"
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange"
-  />
+  >
+  </el-pagination>
 </template>
 
 <script lang="ts" setup>

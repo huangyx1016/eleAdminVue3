@@ -47,6 +47,21 @@
         city
       }}</el-checkbox>
     </el-checkbox-group>
+
+    <Pagination
+      :currentPage="pageInfo.currentPage"
+      :page-size="pageInfo.pageSize"
+      :total="pageInfo.total"
+      :layout="pageInfo.layout"
+      :background="pageInfo.background"
+      :singleHide="true"
+    />
+
+    <el-tree
+      :data="treeData"
+      :props="defaultProps"
+      @node-click="handleNodeClick"
+    />
   </div>
 </template>
 
@@ -57,6 +72,7 @@ import Tab from "@/components/common/Tab.vue";
 import SlideTab from "@/components/common/SlideTab.vue";
 import EchartView from "@/components/common/EchartView.vue";
 import SelectOrgUserList from "@/components/common/SelectOrgUserList.vue";
+import Pagination from "@/components/common/Pagination.vue";
 const userStore = useUserStore();
 const curSlideTab = ref(1);
 
@@ -102,6 +118,85 @@ let state = reactive({
   //   salary: "700",
   // },
 });
+
+const pageInfo = ref({
+  currentPage: 1,
+  pageSize: 5,
+  background: true,
+  layout: "total, sizes, prev, pager, next, jumper",
+  total: 10,
+});
+
+interface Tree {
+  label: string;
+  children?: Tree[];
+}
+const treeData = ref<Tree[]>([
+  {
+    label: "Level one 1",
+    children: [
+      {
+        label: "Level two 1-1",
+        children: [
+          {
+            label: "Level three 1-1-1",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Level one 2",
+    children: [
+      {
+        label: "Level two 2-1",
+        children: [
+          {
+            label: "Level three 2-1-1",
+          },
+        ],
+      },
+      {
+        label: "Level two 2-2",
+        children: [
+          {
+            label: "Level three 2-2-1",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Level one 3",
+    children: [
+      {
+        label: "Level two 3-1",
+        children: [
+          {
+            label: "Level three 3-1-1",
+          },
+        ],
+      },
+      {
+        label: "Level two 3-2",
+        children: [
+          {
+            label: "Level three 3-2-1",
+          },
+        ],
+      },
+    ],
+  },
+]);
+
+const defaultProps = {
+  children: "children",
+  label: "label",
+};
+
+const handleNodeClick = (data: Tree) => {
+  console.log(data);
+};
 
 const changeState = () => {
   state = { id: 2, name: "lisi" };
