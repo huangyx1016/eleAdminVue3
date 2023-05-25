@@ -27,5 +27,6 @@ export default {
     reports: "数据统计",
     father: "多级菜单",
     child: "子菜单",
+    commonExample: "组件使用示例",
   },
 };

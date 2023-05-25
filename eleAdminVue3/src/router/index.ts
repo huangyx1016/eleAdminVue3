@@ -97,6 +97,36 @@ const routes: Array<RouteRecordRaw> = [
           },
         ],
       },
+      {
+        path: "commonExample",
+        name: "commonExample",
+        component: null,
+        meta: {
+          title: "组件使用",
+        },
+        children: [
+          {
+            path: "tree",
+            name: "tree",
+            component: () =>
+              import("@/views/commonComponentUseExample/treeUseExample.vue"), //树形组件使用
+            meta: {
+              title: "树形组件",
+            },
+          },
+          {
+            path: "transfer",
+            name: "transfer",
+            component: () =>
+              import(
+                "@/views/commonComponentUseExample/transferUseExample.vue"
+              ), //树形组件使用
+            meta: {
+              title: "穿梭框组件",
+            },
+          },
+        ],
+      },
     ],
   },
 ];

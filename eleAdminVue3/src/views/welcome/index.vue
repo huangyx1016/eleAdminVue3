@@ -1,6 +1,6 @@
 <template>
   <!-- 这是欢迎页 -->
-  <div style="height: 300px; overflow: auto">
+  <div>
     <p>{{ $t("message.welcome") }}</p>
     <p>{{ userStore.userInfo.username }}</p>
     <p>{{ $t("message.username") }}</p>
@@ -24,9 +24,9 @@
       <p>当前选中的值:{{ selected }}</p>
     </div>
 
-    <!-- <div class="chart-box">
+    <div class="chart-box">
       <EchartView :option="charOption" />
-    </div> -->
+    </div>
     <!-- <p>{{ state }}</p>
     <button @click="changeState">点击修改</button>
     <div class="parent-box">
@@ -62,18 +62,44 @@
       :props="defaultProps"
       @node-click="handleNodeClick"
     />
+
+    <el-button type="primary" @click="toTransferPage">vue3路由跳转</el-button>
+    <br />
+    <!-- RouterLink标签跳转  -->
+    <RouterLink class="link-href" :to="{ path: '/commonExample/transfer' }"
+      >跳转transfer</RouterLink
+    >
+    <br />
+    <RouterLink class="link-href" :to="{ name: 'transfer' }"
+      >跳转transfer</RouterLink
+    >
+    <br />
+    <!-- 带参数跳转 query -->
+    <RouterLink
+      class="link-href"
+      :to="{ path: '/commonExample/transfer', query: { id: 1 } }"
+      >query带参数跳转transfer</RouterLink
+    >
+    <br />
+    <!-- 带参数跳转 params -->
+    <RouterLink class="link-href" :to="{ name: 'transfer', params: { id: 1 } }"
+      >params带参数跳转transfer</RouterLink
+    >
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, reactive, toRefs } from "vue";
 import { useUserStore } from "@/stores/user";
+import { useRouter, RouterLink } from "vue-router";
+
 import Tab from "@/components/common/Tab.vue";
 import SlideTab from "@/components/common/SlideTab.vue";
 import EchartView from "@/components/common/EchartView.vue";
 import SelectOrgUserList from "@/components/common/SelectOrgUserList.vue";
 import Pagination from "@/components/common/Pagination.vue";
 const userStore = useUserStore();
+const router = useRouter();
 const curSlideTab = ref(1);
 
 const checkAll = ref(false);
@@ -231,6 +257,13 @@ const handleCheckedCitiesChange = (value: string[]) => {
 const handleSelectOrgUSerChange = (val) => {
   console.log("handleSelectOrgUSerChange", JSON.parse(JSON.stringify(val)));
 };
+
+//编程式路由跳转页面的方法
+const toTransferPage = () => {
+  //router.push("/commonExample/transfer");
+  //router.push({ path: "/commonExample/transfer", query: { id: 1 } }); //?id=1 带参数的query页面跳转,类似于get请求,参数会跟在url路径上
+  router.push({ name: "transfer", params: { id: 1 } }); //params跳转页面 和query的区别：页面刷新query携带的值不会消失,params会消失
+};
 </script>
 
 <style lang="scss" scoped>
@@ -249,5 +282,13 @@ const handleSelectOrgUSerChange = (val) => {
 .chart-box {
   width: 500px;
   height: 300px;
+}
+
+.link-href {
+  text-decoration: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  color: #333;
 }
 </style>

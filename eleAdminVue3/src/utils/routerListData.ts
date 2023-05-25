@@ -91,4 +91,39 @@ export const routerList = [
       },
     ],
   },
+  {
+    id: 8, //自增id
+    path: "/commonExample", //路由路径
+    name: "commonExample", //路由名称
+    component: "", //组件位置
+    meta: {
+      icon: "EditPen", //图标
+      title: "组件使用", //导航文字
+    },
+    children: [
+      {
+        id: 9, //自增id
+        path: "tree", //路由路径
+        name: "tree", //路由名称
+        component: "/commonExample/treeUseExample", //组件位置
+        meta: {
+          icon: "EditPen", //图标
+          title: "树形组件", //导航文字
+        },
+        fid: 8, //一级导航id
+      },
+      {
+        id: 10, //自增id
+        path: "transfer", //路由路径
+        name: "transfer", //路由名称
+        component: "/commonExample/transferUseExample", //组件位置
+        meta: {
+          icon: "EditPen", //图标
+          title: "穿梭框组件", //导航文字
+        },
+        fid: 8, //一级导航id
+      },
+    ],
+    fid: "", //一级导航id
+  },
 ];

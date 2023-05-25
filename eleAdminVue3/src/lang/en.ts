@@ -26,5 +26,6 @@ export default {
     reports: "dataStatistics",
     father: "multilevelMenu",
     child: "subMenu",
+    commonExample: "componentUseExample",
   },
 };

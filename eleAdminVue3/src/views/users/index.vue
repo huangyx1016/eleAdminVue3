@@ -112,7 +112,7 @@
       :total="pageInfo.total"
       :layout="pageInfo.layout"
       :background="pageInfo.background"
-      :singleHide="true"
+      singleHide
       @change="handleCurrentChange"
       @change-size="handleSizeChange"
     />
@@ -213,7 +213,7 @@ const pageInfo = ref({
   currentPage: 1,
   pageSize: 5,
   background: true,
-  layout: "total, sizes, prev, pager, next, jumper",
+  layout: "prev, pager, next, jumper,total, sizes",
   total: 0,
 });
 const modalData = ref<BasicModalData<number>>({

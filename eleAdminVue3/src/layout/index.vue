@@ -13,11 +13,12 @@
       <!-- 右下主页面 -->
       <el-main class="main-bg">
         <!-- 使用v-slot来进行路由的过渡动效 -->
-        <RouterView v-slot="{ Component }">
-          <transition name="slide" appear>
-            <component :is="Component" />
-          </transition>
-        </RouterView>
+        <el-config-provider :locale="zhCn">
+          <RouterView v-slot="{ Component }">
+            <transition name="slide" appear>
+              <component :is="Component" />
+            </transition> </RouterView
+        ></el-config-provider>
       </el-main>
     </el-container>
   </el-container>
@@ -29,6 +30,10 @@ import Menu from "./Menu/index.vue";
 import Headers from "./headers/index.vue";
 import { RouterLink, RouterView } from "vue-router";
 import { useUserStore } from "@/stores/user";
+//RouterView外面包裹一层ElConfigProvider 设置:locale 将组件设置为中文   https://blog.csdn.net/Web_Try_harder/article/details/119816030
+import { ElConfigProvider } from "element-plus";
+import zhCn from "element-plus/lib/locale/lang/zh-cn";
+
 const userStore = useUserStore();
 const asideWidth = computed(() => {
   return userStore.getIsCollapse ? 50 + "px" : 210 + "px";
