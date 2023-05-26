@@ -47,7 +47,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/modules/user";
 import { ElMessageBox } from "element-plus";
 import CollapseIcon from "./components/CollapseIcon.vue"; //折叠菜单图标组件
 import Clock from "./components/Clock.vue"; //当前系统时间组件

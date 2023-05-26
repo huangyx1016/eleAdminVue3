@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/modules/user";
 const userStore = useUserStore(); //使用pinia useUserStore
 </script>
 

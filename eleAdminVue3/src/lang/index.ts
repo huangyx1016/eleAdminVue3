@@ -1,4 +1,4 @@
-import { useLangStore } from "@/stores/lang";
+import { useLangStore } from "@/stores/modules/lang";
 
 import { createI18n } from "vue-i18n";
 import zh from "./zh";

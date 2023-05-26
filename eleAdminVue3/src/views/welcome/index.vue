@@ -65,7 +65,7 @@
 
     <el-button type="primary" @click="toTransferPage">vue3路由跳转</el-button>
     <br />
-    <!-- RouterLink标签跳转  -->
+    <!-- RouterLink标签跳转 可以query也可以params  -->
     <RouterLink class="link-href" :to="{ path: '/commonExample/transfer' }"
       >跳转transfer</RouterLink
     >
@@ -90,7 +90,7 @@
 
 <script lang="ts" setup>
 import { ref, reactive, toRefs } from "vue";
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/modules/user";
 import { useRouter, RouterLink } from "vue-router";
 
 import Tab from "@/components/common/Tab.vue";
@@ -258,11 +258,11 @@ const handleSelectOrgUSerChange = (val) => {
   console.log("handleSelectOrgUSerChange", JSON.parse(JSON.stringify(val)));
 };
 
-//编程式路由跳转页面的方法
+//vue3中编程式路由跳转页面的方法  const router = useRouter();
 const toTransferPage = () => {
   //router.push("/commonExample/transfer");
   //router.push({ path: "/commonExample/transfer", query: { id: 1 } }); //?id=1 带参数的query页面跳转,类似于get请求,参数会跟在url路径上
-  router.push({ name: "transfer", params: { id: 1 } }); //params跳转页面 和query的区别：页面刷新query携带的值不会消失,params会消失
+  router.push({ name: "transfer", params: { id: 1 } }); //params跳转页面 和query的区别：页面刷新query携带的值不会消失,params会消失,需要与name相配合
 };
 </script>
 

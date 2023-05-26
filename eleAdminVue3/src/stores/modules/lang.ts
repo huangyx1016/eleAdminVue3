@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-
+import { store } from "@/stores";
 export const useLangStore = defineStore("lang", {
   //persist: true, //开启数据持久化
   state: () => {
@@ -25,3 +25,8 @@ export const useLangStore = defineStore("lang", {
     },
   },
 });
+
+//在setup以外使用
+export function useLangStoreWithOut() {
+  return useLangStore(store);
+}

@@ -34,7 +34,7 @@
 
 <script lang="ts" setup>
 import { ref, computed } from "vue";
-import { useLangStore } from "@/stores/lang";
+import { useLangStore } from "@/stores/modules/lang";
 import { useI18n } from "vue-i18n";
 const { locale } = useI18n();
 const langStore = useLangStore();

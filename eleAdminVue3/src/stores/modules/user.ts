@@ -5,6 +5,7 @@ import router from "@/router";
 import { setTokenTime } from "@/utils/auth";
 import { recursion } from "@/utils/recursionMenu";
 import { routerList } from "@/utils/routerListData";
+import { store } from "@/stores";
 
 //用户相关状态管理pinia的store  这里是组合式api的写法
 /**
@@ -45,7 +46,7 @@ export const useUserStore = defineStore(
       isCollapse.value = !isCollapse.value;
     }
 
-    //设置用户信息 保存登录用户信息
+    //设置登录用户信息
     function setUserInfo(data) {
       userInfo.value = data; //设置userInfo
       localStorage.setItem("token", userInfo.value.token); //将token存储到本地localStorage
@@ -119,15 +120,6 @@ export const useUserStore = defineStore(
       useUserStore().$reset(); //重置state状态  使用$reset()重置store为初始状态
       localStorage.clear(); //清除本地存储
       sessionStorage.clear(); //清除临时存储  sessionStorage页面刷新不会清空，只有在关闭页面时才会清空
-      // userInfo.value = {
-      //   token: "",
-      //   menuList: [], //菜单
-      //   routerList: [], //路由
-      //   username: "", //用户名
-      //   rid: null, //角色id
-      //   email: "", //邮箱
-      //   mobile: "", //手机号码};
-      // };
       router.replace("/login"); //用户退出后跳转到登录页
     }
     return {
@@ -148,3 +140,8 @@ export const useUserStore = defineStore(
     persist: true, //pinia数据持久化
   }
 );
+
+//在setup以外使用
+export function useUserStoreWithOut() {
+  return useUserStore(store);
+}

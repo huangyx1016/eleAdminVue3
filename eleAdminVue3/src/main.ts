@@ -20,19 +20,19 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 //导入iconfont在线svg图标生成的js文件  可以实现在iconfont远程管理项目需要的图标文件
 import "./assets/iconfont/iconfont.js";
-//导入pinia数据持久化插件  下载依赖包：npm i  pinia-plugin-persistedstate
-import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
-//引入pinia 状态管理
-const pinia = createPinia();
-pinia.use(piniaPluginPersistedstate);
-//引入 pinia的$reset重置状态管理初始状态的reset方法
-pinia.use(({ store }) => {
-  const initialState = JSON.parse(JSON.stringify(store.$state));
-  store.$reset = () => {
-    store.$state = JSON.parse(JSON.stringify(initialState));
-  };
-});
-app.use(pinia);
+// //导入pinia数据持久化插件  下载依赖包：npm i  pinia-plugin-persistedstate
+// import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+// //引入pinia 状态管理
+// const pinia = createPinia();
+// pinia.use(piniaPluginPersistedstate);
+// //引入 pinia的$reset重置状态管理初始状态的reset方法
+// pinia.use(({ store }) => {
+//   const initialState = JSON.parse(JSON.stringify(store.$state));
+//   store.$reset = () => {
+//     store.$state = JSON.parse(JSON.stringify(initialState));
+//   };
+// });
+// app.use(pinia);
 
 //导入permission路由守卫
 import "@/router/permission";

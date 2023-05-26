@@ -27,7 +27,7 @@
 import { ref, onMounted, watch } from "vue";
 import { menuList } from "@/api/menu";
 import MenuItemStatic from "./MenuItemStatic.vue";
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/modules/user";
 import { useRoute } from "vue-router";
 // import variable from "@/style/variable.scss";
 const route = useRoute();

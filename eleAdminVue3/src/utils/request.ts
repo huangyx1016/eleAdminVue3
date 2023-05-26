@@ -1,8 +1,8 @@
-//简单的axios请求封装
+//简单的axios请求封装 vue2的写法
 import axios from "axios";
 import { ElMessage, ElLoading } from "element-plus";
 import { diffTokenTime } from "@/utils/auth";
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/modules/user";
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, //开发环境api
   timeout: 5000, //请求超时时间

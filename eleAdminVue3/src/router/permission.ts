@@ -1,7 +1,7 @@
 /**
  * 路由权限效验  路由守卫使用
  */
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/modules/user";
 import router from "./index";
 import { ElMessage } from "element-plus";
 

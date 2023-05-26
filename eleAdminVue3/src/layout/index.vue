@@ -29,7 +29,7 @@ import { ref, reactive, onMounted, computed } from "vue";
 import Menu from "./Menu/index.vue";
 import Headers from "./headers/index.vue";
 import { RouterLink, RouterView } from "vue-router";
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/modules/user";
 //RouterView外面包裹一层ElConfigProvider 设置:locale 将组件设置为中文   https://blog.csdn.net/Web_Try_harder/article/details/119816030
 import { ElConfigProvider } from "element-plus";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";

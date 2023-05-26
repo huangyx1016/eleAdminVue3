@@ -5,7 +5,7 @@ export const routerList = [
     path: "/", //路由路径
     name: "/", //路由名称
     component: "/layout/index", //组件位置
-    redirect: "/welcome",
+    redirect: "/welcome", //重定向
     meta: {
       icon: "House", //图标
       title: "首页", //导航文字

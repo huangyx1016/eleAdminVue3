@@ -66,7 +66,7 @@
 import { ref, reactive, onMounted, onBeforeUnmount } from "vue";
 import { ElMessage, type FormInstance, type FormRules } from "element-plus";
 
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/modules/user";
 
 const userStore = useUserStore();
 const formRef = ref<FormInstance>(); //表单form ref实例

@@ -164,8 +164,7 @@ console.log("arr2", arr2);
 //8、findIndex() 接收一个测试函数，也可以叫做条件函数，最终返回满足该测试函数的元素的索引位置，如果没有找到符合条件的元素，则返回-1。如果满足条件的有多个，那么只会返回第一个满足条件的元素索引。
 
 onMounted(() => {
-  //页面加载完成
-  //vue3 获取路由页面跳转时携带参数的写法
+  //vue3 获取路由页面跳转时携带参数的写法  const route = useRoute();
   let queryId = route.query.id; //获取query方式路由跳转的参数
   console.log("queryId", queryId);
   let paramsId = route.params.id; //获取params路由跳转携带的参数时需要在 路由index文件里面的路径后面加上:id 否则会undefined,动态路由
