@@ -15,8 +15,6 @@
       @right-check-change="handleRightCheckChange"
       @change="handleChange"
     />
-    <div>{{ transferValue }}</div>
-
     <div
       style="
         margin-top: 20px;
@@ -172,4 +170,30 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.wrap {
+  display: flex;
+  .left {
+    width: 200px;
+    height: 500px;
+    .list-item {
+      width: 100%;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      border: 1px solid black;
+    }
+  }
+  .right {
+    width: 200px;
+    height: 500px;
+    .list-item {
+      width: 100%;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      border: 1px solid black;
+    }
+  }
+}
+</style>

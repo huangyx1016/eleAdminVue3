@@ -34,6 +34,9 @@ import "./assets/iconfont/iconfont.js";
 // });
 // app.use(pinia);
 
+import { setupStore } from "@/stores";
+setupStore(app);
+
 //导入permission路由守卫
 import "@/router/permission";
 app.use(router);

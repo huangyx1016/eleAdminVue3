@@ -123,6 +123,17 @@ export const routerList = [
         },
         fid: 8, //一级导航id
       },
+      {
+        id: 11, //自增id
+        path: "dragTransfer", //路由路径
+        name: "dragTransfer", //路由名称
+        component: "/commonExample/dragTransferUseExample", //组件位置
+        meta: {
+          icon: "EditPen", //图标
+          title: "拖拽穿梭框组件", //导航文字
+        },
+        fid: 8, //一级导航id
+      },
     ],
     fid: "", //一级导航id
   },
