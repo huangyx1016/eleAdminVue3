@@ -1,0 +1,11 @@
+$menu-bg: #1e2936;
+$default-txt-color:#E5EAF3;
+$login-bg:#2d3a4b;
+
+html.dark{
+     /* 自定义深色背景颜色 */
+  --el-bg-color: #626aef;
+  --menu-bg:#{$menu-bg};
+  --login-bg:#{$login-bg};
+  --default-txt-color:#{$default-txt-color};
+}

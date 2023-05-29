@@ -4,11 +4,12 @@ import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 import "@/assets/reset.css"; //重置样式表
-import "@/style/index.scss";
 
 //引入element-ui-plus
 // import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
+import "element-plus/theme-chalk/dark/css-vars.css";
+import "@/style/index.scss";
 // import "./assets/main.css";
 //引入element-ui-plus图标
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";

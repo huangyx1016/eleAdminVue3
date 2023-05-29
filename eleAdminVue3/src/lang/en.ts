@@ -27,5 +27,7 @@ export default {
     father: "multilevelMenu",
     child: "subMenu",
     commonExample: "componentUseExample",
+    tree: "tree",
+    transfer: "transfer",
   },
 };

@@ -61,7 +61,8 @@ const generateData = () => {
 
 const data = ref<Option[]>(generateData()); //穿梭框组件的源数据
 const transferValue = ref([]); //穿梭框绑定的数据
-const timer = ref(null);
+// const timer = ref(null);
+let timer = null;
 
 /**
  * @left-check-change="handleLeftCheckChange"
@@ -117,14 +118,15 @@ const handleChange = (
 //给同一个dom元素添加单击和双击事件
 //单击事件
 const handleClick = () => {
-  clearTimeout(timer.value);
-  timer.value = setTimeout(() => {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
     console.log("单击事件");
   }, 400);
+  // console.log("单击事件");
 };
 //双击事件
 const handleDblClick = () => {
-  clearTimeout(timer.value);
+  clearTimeout(timer);
   console.log("双击事件");
 };
 

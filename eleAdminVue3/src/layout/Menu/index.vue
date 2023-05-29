@@ -6,7 +6,7 @@
    -->
   <el-menu
     active-text-color="#ffd04b"
-    background-color="#304156"
+    background-color="var(--menu-bg)"
     class="el-menu-vertical-demo"
     text-color="#fff"
     unique-opened
@@ -67,6 +67,9 @@ watch(
 </script>
 
 <style lang="scss" scoped>
+.el-menu {
+  border-right: none;
+}
 //添加element-ui 不折叠时的样式
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 210px;

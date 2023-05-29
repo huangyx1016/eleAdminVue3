@@ -1,6 +1,6 @@
 <template>
   <!-- 这是头部组件 -->
-  <div class="nav-bar">
+  <el-header class="nav-bar">
     <CollapseIcon />
     <BreadCrumb class="bread-crumb" />
 
@@ -14,19 +14,7 @@
         <ChangeLang />
       </div>
 
-      <el-dropdown>
-        <span>切换主题</span>
-        <el-icon class="el-icon--right">
-          <arrow-down />
-        </el-icon>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <div class="theme-box">
-              <div class="theme-box-item"></div>
-            </div>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+      <ChangeTheme />
 
       <el-dropdown>
         <div class="login-user-box pointer">
@@ -42,7 +30,7 @@
         </template>
       </el-dropdown>
     </div>
-  </div>
+  </el-header>
 </template>
 
 <script lang="ts" setup>
@@ -54,6 +42,7 @@ import Clock from "./components/Clock.vue"; //当前系统时间组件
 import BreadCrumb from "./components/BreadCrumb.vue"; //面包屑组件
 import ChangeLang from "@/components/ChangeLang.vue"; //切换语言组件
 import fullScreen from "./components/fullScreen.vue"; //全屏组件
+import ChangeTheme from "@/components/ChangeTheme.vue";
 
 const userStore = useUserStore();
 const userHeadSrc = ref(
@@ -80,13 +69,10 @@ const logout = () => {
 .nav-bar {
   width: 100%;
   height: 60px;
-  background-color: #fff;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-  padding: 0 16px;
   display: flex;
+  padding: 0;
   align-items: center;
   box-sizing: border-box;
-  position: relative;
   .collapse-icon {
     cursor: pointer;
   }

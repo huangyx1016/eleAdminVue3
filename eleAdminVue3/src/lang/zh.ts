@@ -28,5 +28,7 @@ export default {
     father: "多级菜单",
     child: "子菜单",
     commonExample: "组件使用示例",
+    tree: "树形组件使用",
+    transfer: "穿梭框组件使用",
   },
 };

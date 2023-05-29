@@ -48,16 +48,13 @@ const show = ref(false);
   height: 100%;
 
   .sidebar-container {
-    background: var(--menuBg);
+    background: var(--menu-bg);
     transition: 0.3s linear;
   }
   .content {
     // width: calc(100% - var(--sideBarWidth));
     height: 100%;
     transition: 0.3s;
-    ::v-deep(.el-header) {
-      padding: 0;
-    }
   }
 }
 </style>

@@ -12,14 +12,14 @@
     >
       <div class="title-container">{{ $t("login.title") }}</div>
       <el-form-item label="用户名：" prop="username">
-        <el-icon class="left-icon" :size="20" color="white">
+        <el-icon class="left-icon" :size="20" color="var(--default-txt-color)">
           <UserFilled />
         </el-icon>
         <!-- .trim 禁止输入空格 -->
         <el-input v-model.trim="form.username" clearable />
       </el-form-item>
       <el-form-item label="密码：" prop="password">
-        <el-icon class="left-icon" :size="20" color="white">
+        <el-icon class="left-icon" :size="20" color="var(--default-txt-color)">
           <Lock />
         </el-icon>
         <el-input
@@ -141,7 +141,7 @@ onBeforeUnmount(() => {
 .login-container {
   width: 100%;
   height: 100%;
-  background-color: #2d3a4b;
+  background-color: var(--login-bg);
   .is-active {
     color: skyblue;
   }
@@ -154,14 +154,14 @@ onBeforeUnmount(() => {
     .title-container {
       text-align: center;
       font-size: 30px;
-      color: whitesmoke;
+      color: var(--default-txt-color);
       margin-bottom: 50px;
     }
     ::v-deep(.el-form-item) {
       margin-bottom: 30px;
       .el-form-item__label {
         font-size: 18px;
-        color: whitesmoke;
+        color: var(--default-txt-color);
       }
       .el-form-item__content {
         width: 400px;
@@ -192,7 +192,7 @@ onBeforeUnmount(() => {
             .el-input__inner {
               padding-left: 20px;
               font-size: 18px;
-              color: white;
+              color: var(--default-txt-color);
             }
           }
         }

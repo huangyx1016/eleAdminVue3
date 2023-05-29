@@ -1,4 +1,5 @@
 @import "./variable.scss" ;
+@import "./theme/dark/cssVariable.scss";
 @import "./transition.scss";
 
 //滚动条样式
@@ -6,7 +7,7 @@
   scrollbar-width: none !important; // 火狐浏览器无法自定义宽度，只能通过此属性使滚动条宽度变细
   -ms-overflow-style: none !important; // IE和edge两个浏览器中很难更改样式，因此隐藏滚动条
   &::-webkit-scrollbar {
-    width: 10px !important;
+    width: 8px !important;
   }
   &::-webkit-scrollbar-track {
     // 滚动条轨道
@@ -16,7 +17,7 @@
   &::-webkit-scrollbar-thumb {
     // 滚动条滑块
     border-radius: 5px !important;
-    background-color: #ddd;
+    background-color: #ddd ;
     &:hover {
       background-color: #bbb;
     }

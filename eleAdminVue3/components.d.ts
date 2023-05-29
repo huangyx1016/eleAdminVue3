@@ -10,6 +10,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ChangeLang: typeof import('./src/components/ChangeLang.vue')['default']
+    ChangeTheme: typeof import('./src/components/ChangeTheme.vue')['default']
     EchartView: typeof import('./src/components/common/EchartView.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']

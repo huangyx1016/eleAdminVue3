@@ -1,11 +1,18 @@
 // styles/element/index.scss
 /* 只需要重写你需要的即可 */
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
-  $colors: (
-    'primary': (
-      'base': green,
-    ),
-  ),
+  // $colors: (
+  //   'primary': (
+  //     'base': green,
+  //   ),
+  // ),
+);
+@forward 'element-plus/theme-chalk/src/dark/var.scss' with (
+  // $bg-color: (
+  //   'page': #0a0a0a,
+  //   '': #626aef,
+  //   'overlay': #1d1e1f,
+  // )
 );
 
 // 如果只是按需导入，则可以忽略以下内容。

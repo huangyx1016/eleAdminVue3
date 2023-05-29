@@ -125,17 +125,6 @@ const routes: Array<RouteRecordRaw> = [
               title: "穿梭框组件",
             },
           },
-          {
-            path: "dragTransfer",
-            name: "dragTransfer",
-            component: () =>
-              import(
-                "@/views/commonComponentUseExample/dragTransferUseExample.vue"
-              ), //树形组件使用
-            meta: {
-              title: "拖拽穿梭框组件",
-            },
-          },
         ],
       },
     ],

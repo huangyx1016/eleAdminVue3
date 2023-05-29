@@ -3,7 +3,7 @@ $menuText: #bfcbd9;
 $menuActiveText: #ffffff;
 $subMenuActiveText: #f4f4f5;
 
-$menuBg: #304156;
+$menu-bg: #304156;
 $menuHover: #263445;
 
 $subMenuBg: #1f2d3d;
@@ -14,16 +14,23 @@ $hideSideBarWidth: 67px;
 $sideBarDuration: 0.28s;
 
 
+$login-bg:#efefef;
+$default-txt-color:#333;
+
+
 
 
 html:root {
   --menuText: #{$menuText};
   --menuActiveText: #{$menuActiveText};
   --subMenuActiveText: #{$subMenuActiveText};
-  --menuBg: #{$menuBg};
+  --menu-bg: #{$menu-bg};
   --menuHover: #{$menuHover};
   --subMenuBg: #{$subMenuBg};
   --subMenuHover: #{$subMenuHover};
   --sideBarWidth: #{$sideBarWidth};
   --hideSideBarWidth: #{$hideSideBarWidth};
+
+  --login-bg:#{$login-bg};
+  --default-txt-color:#{$default-txt-color};
 }

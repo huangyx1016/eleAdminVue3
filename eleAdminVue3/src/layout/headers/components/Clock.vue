@@ -19,7 +19,7 @@ setInterval(freshCurrentTime, 1000);
 
 <style lang="scss" scoped>
 .current-time-box {
-  color: #333;
+  color: var(--default-txt-color);
   font-size: 16px;
   margin-right: 10px;
 }
