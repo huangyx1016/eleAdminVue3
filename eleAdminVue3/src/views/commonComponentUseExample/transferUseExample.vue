@@ -115,16 +115,17 @@ const handleChange = (
   console.log("movedKeys", movedKeys);
 };
 
-//给同一个dom元素添加单击和双击事件
-//单击事件
+//给同一个dom元素添加单击和双击事件   双击一个按钮会执行一次双击事件和两次单击事件,会有单击和双击冲突的情况
+//通过类似防抖的方法(设置定时器)来解决该问题
+//单击事件 @click="handleClick"
 const handleClick = () => {
   clearTimeout(timer);
   timer = setTimeout(() => {
-    console.log("单击事件");
+    console.log("单击事件"); //清除定时器
   }, 400);
   // console.log("单击事件");
 };
-//双击事件
+//双击事件 @dbclick = "handleDblClick"
 const handleDblClick = () => {
   clearTimeout(timer);
   console.log("双击事件");

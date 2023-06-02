@@ -107,7 +107,7 @@ const logout = () => {
       gap: 10px;
       .login-user-txt {
         font-size: 18px;
-        color: gray;
+        color: var(--default-txt-color);
         // margin-left: 10px;
       }
     }

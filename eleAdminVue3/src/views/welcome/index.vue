@@ -82,9 +82,9 @@
     >
     <br />
     <!-- 带参数跳转 params -->
-    <RouterLink class="link-href" :to="{ name: 'transfer', params: { id: 1 } }"
+    <!-- <RouterLink class="link-href" :to="{ name: 'transfer', params: { id: 1 } }"
       >params带参数跳转transfer</RouterLink
-    >
+    > -->
 
     <el-row class="mb-4">
       <el-button>Default</el-button>
@@ -94,11 +94,71 @@
       <el-button type="warning">Warning</el-button>
       <el-button type="danger">Danger</el-button>
     </el-row>
+
+    <div style="margin-top: 40px">
+      <p>{{ dateVal }}</p>
+      <el-date-picker
+        v-model="dateVal"
+        type="datetime"
+        value-format="YYYY-MM-DD HH:mm:ss"
+        placeholder="Select date and time"
+      />
+    </div>
+    <UploadImg />
+
+    <el-check-tag :checked="tagChecked" @change="handleTagCheckedChange"
+      >Toggle me</el-check-tag
+    >
+    <p>{{ curElTabIndex }}</p>
+    <el-tabs
+      v-model="curElTabIndex"
+      :stretch="false"
+      @tab-click="handleClickElTabIndex"
+    >
+      <el-tab-pane
+        :label="tab"
+        :name="i"
+        v-for="(tab, i) in tabList"
+        :key="i"
+      ></el-tab-pane>
+    </el-tabs>
+
+    <el-button type="primary" @click="dialogVisible = true">
+      点击打开弹窗
+    </el-button>
+    <el-dialog
+      v-model="dialogVisible"
+      title="提示"
+      width="30%"
+      class="dialog-box"
+    >
+      <span>This is a message</span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="dialogVisible = false">
+            确定
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
+
+    <el-button @click="handleAdd">点击打开Dialog组件新增</el-button>
+    <el-button @click="handleEdit">点击打开Dialog组件编辑</el-button>
+    <Dialog
+      v-model:show="modalData.showModal"
+      :modal-data="modalData"
+      :id="curId"
+    />
+    <el-button type="primary" @click="commonDialogVisible = true"
+      >点击显示公共弹窗</el-button
+    >
+    <CommonDialog v-model:visible="commonDialogVisible" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, toRefs } from "vue";
+import { ref, reactive, toRefs, toRef } from "vue";
 import { useUserStore } from "@/stores/modules/user";
 import { useRouter, RouterLink } from "vue-router";
 
@@ -107,9 +167,46 @@ import SlideTab from "@/components/common/SlideTab.vue";
 import EchartView from "@/components/common/EchartView.vue";
 import SelectOrgUserList from "@/components/common/SelectOrgUserList.vue";
 import Pagination from "@/components/common/Pagination.vue";
+import UploadImg from "@/components/common/UploadImg.vue";
+import Dialog from "./Dailog.vue";
+import CommonDialog from "@/components/common/CommonDialog.vue";
+import { cloneDeep } from "lodash";
+const curId = ref(0);
+const modalData = ref({
+  showModal: false,
+  modalType: "",
+  modalTitle: "",
+  data: 0,
+});
+const handleAdd = () => {
+  Object.assign(modalData.value, {
+    showModal: true,
+    modalType: "add",
+    modalTitle: "新增",
+    data: 0,
+  });
+  curId.value = 0;
+};
+const handleEdit = () => {
+  Object.assign(modalData.value, {
+    showModal: true,
+    modalType: "edit",
+    modalTitle: "编辑",
+    data: 1,
+  });
+  curId.value = 1;
+  // modalData.value = {
+  //   showModal: true,
+  //   modalType: "edit",
+  //   modalTitle: "编辑",
+  //   data: 1,
+  // };
+};
+
+const commonDialogVisible = ref(false);
 const userStore = useUserStore();
 const router = useRouter();
-const curSlideTab = ref(1);
+const curSlideTab = ref(0);
 
 const checkAll = ref(false);
 const isIndeterminate = ref(true);
@@ -130,6 +227,11 @@ const selected = ref([]);
 const charOption = reactive({
   title: {
     text: "ECharts 入门示例",
+    textStyle: {
+      textBorderWidth: 2,
+      textBorderColor: "red",
+      color: "red",
+    },
   },
   tooltip: {},
   xAxis: {
@@ -145,6 +247,7 @@ const charOption = reactive({
   ],
 });
 
+const dateVal = ref("");
 let state = reactive({
   id: 1,
   name: "zhangsan",
@@ -229,6 +332,18 @@ const defaultProps = {
   label: "label",
 };
 
+const tagChecked = ref(false);
+const curElTabIndex = ref(0);
+const tabList = ref(["选项1", "选项2"]);
+const dialogVisible = ref(false);
+const handleClickElTabIndex = (tab) => {
+  console.log("tab", tab);
+};
+const handleTagCheckedChange = (status: boolean) => {
+  tagChecked.value = status;
+  console.log("tagChecked", tagChecked.value);
+};
+
 const handleNodeClick = (data: Tree) => {
   console.log(data);
 };
@@ -299,5 +414,12 @@ const toTransferPage = () => {
   margin-bottom: 20px;
   box-sizing: border-box;
   color: #333;
+}
+
+:deep(.dialog-box) {
+  height: 500px;
+  .el-dialog__body {
+    height: calc(100% - 176px);
+  }
 }
 </style>
