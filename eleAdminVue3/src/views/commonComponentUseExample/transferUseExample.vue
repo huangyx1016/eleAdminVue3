@@ -134,15 +134,15 @@ const handleDblClick = () => {
 //js sort()方法的使用 可以对数组进行排序
 const arr = [1, 6, 3, 2, 8];
 arr.sort((a, b) => a - b); //升序/从小到大排
-console.log("arr", arr);
+// console.log("arr", arr);
 const arr2 = [1, 2, 5, 12, 34, 33, 90];
 arr2.sort((a, b) => b - a); //降序/从大到小排
-console.log("arr2", arr2);
+// console.log("arr2", arr2);
 arr2.unshift(0); //js unshift()往数组开头添加一个到多个元素
 arr2.unshift(99);
-console.log("arr2", arr2);
+// console.log("arr2", arr2);
 arr2.sort((a, b) => a - b);
-console.log("arr2", arr2);
+// console.log("arr2", arr2);
 
 //js中一些常用的数组方法  https://blog.csdn.net/web2022050903/article/details/127073445
 //js中会改变原数组的数组方法
@@ -167,9 +167,9 @@ console.log("arr2", arr2);
 onMounted(() => {
   //vue3 获取路由页面跳转时携带参数的写法  const route = useRoute();
   let queryId = route.query.id; //获取query方式路由跳转的参数
-  console.log("queryId", queryId);
+  // console.log("queryId", queryId);
   let paramsId = route.params.id; //获取params路由跳转携带的参数时需要在 路由index文件里面的路径后面加上:id 否则会undefined,动态路由
-  console.log("paramsId", paramsId);
+  // console.log("paramsId", paramsId);
 });
 </script>
 

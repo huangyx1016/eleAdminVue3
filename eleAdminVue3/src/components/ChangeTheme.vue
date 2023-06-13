@@ -1,4 +1,5 @@
 <template>
+  <!-- 切换深色/浅色模式组件 后期需要考虑使用hooks来实现 -->
   <el-switch
     v-model="settingStore.theme"
     inline-prompt
@@ -17,15 +18,28 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 import { useDark, useToggle } from "@vueuse/core";
 import { Moon, Sunny } from "@element-plus/icons-vue";
 import { useSettingStore } from "@/stores/modules/setting";
-const isDark = useDark();
-const toggleDark = useToggle(isDark);
+const isDark = useDark({
+  // 存储到localStorage/sessionStorage中的Key 根据自己的需求更改
+  //storageKey: "useDarkKEY",
+  // 暗黑class名字
+  //valueDark: "dark",
+  // 高亮class名字
+  // valueLight: "light",
+});
+
 const settingStore = useSettingStore();
+const toggleDark = useToggle(isDark);
+/**
+ * @change="handleChangeTheme"
+ * switch开关组件值改变的回调
+ */
 const handleChangeTheme = (val) => {
   settingStore.theme = val;
+  // console.log("settingStore.theme", settingStore.theme);
   toggleDark();
 };
 </script>

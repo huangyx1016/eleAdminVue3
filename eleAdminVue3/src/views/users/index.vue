@@ -122,7 +122,7 @@
       v-if="modalData.showDrawer"
       direction="rtl"
       :title="modalData.modalTitle"
-      :close-on-click-modal="false"
+      :close-on-click-modal="isShowDetail"
     >
       <!-- <template #header>
         <h4>标题</h4>
@@ -504,14 +504,14 @@ const resetUserForm = () => {
 };
 
 //监听 这是使用监听去重置表单效验和表单初始值
-watch(
-  () => modalData.value.showDrawer,
-  (val) => {
-    if (!val) {
-      resetUserForm();
-    }
-  }
-);
+// watch(
+//   () => modalData.value.showDrawer,
+//   (val) => {
+//     if (!val) {
+//       resetUserForm();
+//     }
+//   }
+// );
 
 //文件导入
 const handleImportFile = () => {

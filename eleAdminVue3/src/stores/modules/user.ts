@@ -20,12 +20,10 @@ export const useUserStore = defineStore(
     // const token = ref("");
     const userInfo = ref({
       token: "", //登录的token
+      userAuth: [], //用户权限
       menuList: [], //菜单
       routerList: [], //路由
       username: "", //用户名
-      rid: null, //角色id
-      email: "", //邮箱
-      mobile: "", //手机号码
     }); //登录用户信息
     const loading = ref(false); //按钮的loading
     const isCollapse = ref(false); //是否折叠 默认false 不折叠
@@ -77,15 +75,11 @@ export const useUserStore = defineStore(
           menuList: menuList, //菜单
           routerList: [], //路由
           username: loginForm.username,
-          rid: null,
-          email: "",
-          mobile: "",
         };
         setUserInfo(userInfo);
         router.replace("/"); //登录成功后跳转主页
       } else {
         //通过接口账号密码登录
-        //返回一个新的promise
         return new Promise((resolve, reject) => {
           loginApi(loginForm)
             .then((res: any) => {
@@ -99,9 +93,6 @@ export const useUserStore = defineStore(
                   menuList: menuList, //菜单列表
                   routerList: [], //路由列表
                   username: res.data.username,
-                  rid: res.rid,
-                  email: res.email,
-                  mobile: res.mobile,
                 };
                 setUserInfo(userInfo);
                 //addRoute();

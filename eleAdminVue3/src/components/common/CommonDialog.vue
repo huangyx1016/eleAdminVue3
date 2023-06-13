@@ -25,7 +25,7 @@ const props = defineProps({
   visible: {
     type: Boolean,
     default: false,
-  }, //双向数据绑定的值,这里也可以写成modelValue,父组件使用时就要变成v-model绑定
+  }, //双向数据绑定的值,这里也可以写成modelValue,父组件使用时就要变成v-model绑定  v-model是v-model:modelValue的简写
   dialogTitle: {
     type: String,
     default: "提示",
@@ -39,7 +39,7 @@ const emit = defineEmits<{
   (e: "update:visible", value: boolean): void;
 }>();
 
-//计算属性
+//计算属性 使用计算属性结合update:visible实现
 const dialogVisible = computed({
   get() {
     return props.visible;

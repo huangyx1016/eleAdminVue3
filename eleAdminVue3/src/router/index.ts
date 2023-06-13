@@ -1,3 +1,5 @@
+import type { App } from "vue";
+import { createRouterGuards } from "./permission"; //路由守卫
 import {
   createRouter,
   createWebHistory,
@@ -125,19 +127,56 @@ const routes: Array<RouteRecordRaw> = [
               title: "穿梭框组件",
             },
           },
+          {
+            path: "getScreenWidth",
+            name: "getScreenWidth",
+            component: () =>
+              import("@/views/commonComponentUseExample/getScreenWith.vue"),
+            meta: {
+              title: "获取页面宽高", //获取当前页面的宽度和高度
+            },
+          },
         ],
       },
     ],
   },
 ];
+
+const modules = import.meta.globEager("./**/*.ts"); //import.meta.globEager 批量立即导入文件  这里导入的是其他路由的ts文件
+//const modules2 = import.meta.glob("./**/*.ts"); //import.meta.glob 是批量异步引入
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes,
-  //滚动行为
+  history: createWebHistory(import.meta.env.BASE_URL), //路由模式 历史模式
+  routes, //静态路由
+  //滚动行为 每次切换路由时 距离顶部的距离
   scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
     // 始终滚动到顶部
-    return { top: 0 };
+    return { top: 800 };
   },
 });
+
+//router.getRoutes()：获取一个包含所有路由记录的数组
+// console.log("getRoutes", router.getRoutes());
+//动态添加路由 router.addRoute({path:"",name:"",component:()=>import()});
+router.addRoute({
+  path: "/test",
+  name: "test",
+  component: () => import("@/views/commonComponentUseExample/test.vue"),
+});
+// console.log("getRoutes", router.getRoutes());
+//动态删除路由
+//1、可以添加一个name相同的路由来实现
+//2、 通过removeRoute('路由名称')
+router.removeRoute("test");
+// console.log("getRoutes", router.getRoutes());
+
+//初始化路由的方法 setupRouter()  需要在main.ts中引入使用
+export function setupRouter(app: App) {
+  app.use(router);
+  createRouterGuards(router); //路由守卫 包括路由前置/后置守卫的使用
+  // router.addRoute();//动态添加路由表需要使用router.addRoute()来实现
+}
 
 export default router;

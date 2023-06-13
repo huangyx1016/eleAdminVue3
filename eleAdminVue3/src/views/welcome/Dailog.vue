@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, toRef, nextTick, computed } from "vue";
+import { ref, toRef, nextTick, computed, onUnmounted } from "vue";
 const props = defineProps({
   modalData: {
     type: Object,
@@ -41,10 +41,6 @@ const emit = defineEmits<{
   (e: "update:show", value: boolean);
 }>();
 
-const modalDataComputed = computed(() => {
-  return props.modalData;
-});
-console.log("modalDataComputed", modalDataComputed.value);
 //计算属性
 const modalShow = computed({
   get() {
@@ -55,10 +51,12 @@ const modalShow = computed({
   },
 });
 console.log("props.id", props.id);
-console.log("props.modalData", props.modalData);
-if (props.modalData.data === 1) {
-  console.log("xxx");
-}
+// console.log("props.modalData", props.modalData);
+//等价于vue2的destroyed生命周期
+onUnmounted(() => {
+  //组件销毁的生命周期
+  console.log("onUnmounted");
+});
 </script>
 
 <style lang="scss" scoped></style>

@@ -4,6 +4,7 @@
     <p>{{ $t("message.welcome") }}</p>
     <p>{{ userStore.userInfo.username }}</p>
     <p>{{ $t("message.username") }}</p>
+    <p>当前时间：{{ currentTime }}</p>
     <!-- <div style="margin: 20px">
       <Tab @change="handleTabChange"/>
     </div> -->
@@ -24,9 +25,9 @@
       <p>当前选中的值:{{ selected }}</p>
     </div>
 
-    <div class="chart-box">
+    <!-- <div class="chart-box">
       <EchartView :option="charOption" />
-    </div>
+    </div> -->
     <!-- <p>{{ state }}</p>
     <button @click="changeState">点击修改</button>
     <div class="parent-box">
@@ -100,9 +101,21 @@
       <el-date-picker
         v-model="dateVal"
         type="datetime"
-        value-format="YYYY-MM-DD HH:mm:ss"
+        format="YYYY-MM-DD hh:mm:ss"
+        value-format="YYYY-MM-DD hh:mm:ss"
         placeholder="Select date and time"
       />
+      <p>{{ timeRangeValue }}</p>
+      <el-date-picker
+        v-model="timeRangeValue"
+        type="daterange"
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        value-format="YYYY-MM-DD"
+        class="time-range"
+      >
+      </el-date-picker>
     </div>
     <UploadImg />
 
@@ -154,14 +167,77 @@
       >点击显示公共弹窗</el-button
     >
     <CommonDialog v-model:visible="commonDialogVisible" />
+
+    <div class="list">
+      <div class="list-item" v-for="(item, index) in 10" :key="index">
+        {{ item }}
+      </div>
+    </div>
+    <p>页面宽度screenWidth:{{ screenWidth }}</p>
+    <p>页面高度screenHeight:{{ screenHeight }}</p>
+    <p>页面宽度screenWidth2:{{ screenWidth2 }}</p>
+    <p>页面高度screenHeight2:{{ screenHeight2 }}</p>
+
+    <div style="margin-top: 30xp">
+      <!-- 动态添加、删除表单项时的表单效验 -->
+      <el-form
+        ref="formRef"
+        :model="dynamicValidateForm"
+        label-width="120px"
+        class="demo-dynamic"
+      >
+        <!-- <el-form-item
+          prop="email"
+          label="Email"
+          :rules="[
+            {
+              required: true,
+              message: '请输入邮箱地址',
+              trigger: 'blur',
+            },
+            {
+              type: 'email',
+              message: '请输入正确的邮箱地址',
+              trigger: ['blur', 'change'],
+            },
+          ]"
+        >
+          <el-input v-model="dynamicValidateForm.email" />
+        </el-form-item> -->
+        <el-form-item
+          v-for="(item, index) in dynamicValidateForm.domains"
+          :key="item.key"
+          :label="'Domain' + index"
+          :prop="'domains.' + index + '.value'"
+          :rules="{
+            required: true,
+            message: 'domains不能为空',
+            trigger: 'blur',
+          }"
+        >
+          <el-input v-model="item.value" />
+          <el-button class="mt-2" @click.prevent="removeDomain(item)"
+            >删除</el-button
+          >
+        </el-form-item>
+        <div>
+          <el-button type="primary" @click="submitForm(formRef)"
+            >提交</el-button
+          >
+          <el-button @click="addDomain">新增domain</el-button>
+          <el-button @click="resetForm(formRef)">重置</el-button>
+        </div>
+      </el-form>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, toRefs, toRef } from "vue";
+import { ref, reactive, toRefs, toRef, onMounted } from "vue";
+import type { FormInstance } from "element-plus";
 import { useUserStore } from "@/stores/modules/user";
+import { useCounterStore } from "@/stores/modules/counter";
 import { useRouter, RouterLink } from "vue-router";
-
 import Tab from "@/components/common/Tab.vue";
 import SlideTab from "@/components/common/SlideTab.vue";
 import EchartView from "@/components/common/EchartView.vue";
@@ -171,6 +247,8 @@ import UploadImg from "@/components/common/UploadImg.vue";
 import Dialog from "./Dailog.vue";
 import CommonDialog from "@/components/common/CommonDialog.vue";
 import { cloneDeep } from "lodash";
+import { useTime } from "@/layout/headers/components/hooks/useTime"; //自定义hooks
+
 const curId = ref(0);
 const modalData = ref({
   showModal: false,
@@ -195,17 +273,11 @@ const handleEdit = () => {
     data: 1,
   });
   curId.value = 1;
-  // modalData.value = {
-  //   showModal: true,
-  //   modalType: "edit",
-  //   modalTitle: "编辑",
-  //   data: 1,
-  // };
 };
 
-const commonDialogVisible = ref(false);
-const userStore = useUserStore();
-const router = useRouter();
+const commonDialogVisible = ref(false); //控制commonDialog公共弹窗组件显示/隐藏
+const userStore = useUserStore(); //pinia状态管理
+const router = useRouter(); //路由useRouter()
 const curSlideTab = ref(0);
 
 const checkAll = ref(false);
@@ -245,9 +317,10 @@ const charOption = reactive({
       data: [5, 20, 36, 10, 10, 20],
     },
   ],
-});
+}); //echarts配置数据
 
-const dateVal = ref("");
+const dateVal = ref(""); //日期时间
+const timeRangeValue = ref(null); //日期范围
 let state = reactive({
   id: 1,
   name: "zhangsan",
@@ -336,6 +409,58 @@ const tagChecked = ref(false);
 const curElTabIndex = ref(0);
 const tabList = ref(["选项1", "选项2"]);
 const dialogVisible = ref(false);
+const currentTime = ref(""); //当前系统时间
+const screenWidth = ref(0); //页面宽度
+const screenHeight = ref(0); //页面高度
+const screenWidth2 = ref(0); //页面宽度
+const screenHeight2 = ref(0); //页面高度
+const formRef = ref<FormInstance>();
+type dynamicValidateFormType<T> = {
+  domains: T[];
+  email: string;
+};
+interface DomainItem {
+  key: number;
+  value: string;
+}
+const dynamicValidateForm = reactive<dynamicValidateFormType<DomainItem>>({
+  domains: [
+    {
+      key: 1,
+      value: "",
+    },
+  ],
+  email: "",
+}); //动态添加/删除表单
+const addDomain = () => {
+  dynamicValidateForm.domains.push({
+    key: Date.now(),
+    value: "",
+  });
+};
+const removeDomain = (item: DomainItem) => {
+  const index = dynamicValidateForm.domains.indexOf(item);
+  if (index !== -1) {
+    dynamicValidateForm.domains.splice(index, 1);
+  }
+};
+const submitForm = (formEl: FormInstance | undefined) => {
+  if (!formEl) return;
+  formEl.validate((valid) => {
+    if (valid) {
+      console.log("submit!");
+    } else {
+      console.log("error submit!");
+      return false;
+    }
+  });
+};
+
+const resetForm = (formEl: FormInstance | undefined) => {
+  if (!formEl) return;
+  formEl.resetFields();
+};
+
 const handleClickElTabIndex = (tab) => {
   console.log("tab", tab);
 };
@@ -388,6 +513,30 @@ const toTransferPage = () => {
   //router.push({ path: "/commonExample/transfer", query: { id: 1 } }); //?id=1 带参数的query页面跳转,类似于get请求,参数会跟在url路径上
   router.push({ name: "transfer", params: { id: 1 } }); //params跳转页面 和query的区别：页面刷新query携带的值不会消失,params会消失,需要与name相配合
 };
+
+//获取当前时间
+const getTime = () => {
+  const { year, month, day, getNowFormatTime } = useTime(); //这里是使用了自定义hooks来获取当前系统时间
+  console.log("year", year.value);
+  console.log("month", month.value);
+  console.log("day", day.value);
+  currentTime.value = getNowFormatTime("-", ":"); //这里的getNowFormatTime()是自定义hooks里的方法
+};
+getTime();
+
+onMounted(() => {
+  screenWidth.value = document.body.clientWidth;
+  screenHeight.value = document.body.clientHeight;
+  screenWidth2.value = document.documentElement.clientWidth;
+  screenHeight2.value = document.documentElement.clientHeight;
+  //页面缩放的回调函数 window.resize();
+  window.onresize = () => {
+    screenWidth.value = document.body.clientWidth;
+    screenHeight.value = document.body.clientHeight;
+    screenWidth2.value = document.documentElement.clientWidth;
+    screenHeight2.value = document.documentElement.clientHeight;
+  };
+});
 </script>
 
 <style lang="scss" scoped>
@@ -420,6 +569,26 @@ const toTransferPage = () => {
   height: 500px;
   .el-dialog__body {
     height: calc(100% - 176px);
+  }
+}
+
+.list {
+  display: flex;
+  .list-item {
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    &::before {
+      content: "*";
+      color: red;
+    }
+    &:nth-child(4n) {
+      // color: red;
+      &::before {
+        content: "";
+      }
+    }
   }
 }
 </style>

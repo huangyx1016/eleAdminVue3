@@ -29,5 +29,6 @@ export default {
     commonExample: "componentUseExample",
     tree: "tree",
     transfer: "transfer",
+    getScreenWidth: "getScreenWidth",
   },
 };

@@ -13,7 +13,7 @@
       <!-- <span>{{ item.meta.title }}</span> -->
       <span>{{ $t(`menus.${item.name}`) }}</span>
     </template>
-    <!-- 递归调用自己 -->
+    <!-- 组件递归调用自己 -->
     <MenuItemStatic
       v-for="child in item.children"
       :key="child.path"

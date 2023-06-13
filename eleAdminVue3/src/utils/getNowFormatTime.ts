@@ -13,6 +13,8 @@ export function getNowFormatTime(char = "-", char2 = ":") {
   let hours = nowDate.getHours();
   let minutes = nowDate.getMinutes();
   let seconds = nowDate.getSeconds();
+  let week = "日一二三四五六".charAt(nowDate.getDay()); //星期几
+  // console.log("nowDate.getDay()", nowDate.getDay());
   //补全0，并拼接
   let time =
     year +
@@ -25,7 +27,10 @@ export function getNowFormatTime(char = "-", char2 = ":") {
     char2 +
     (minutes < 10 ? "0" + minutes : minutes) +
     char2 +
-    (seconds < 10 ? "0" + seconds : seconds);
+    (seconds < 10 ? "0" + seconds : seconds) +
+    " " +
+    "星期" +
+    week;
   return time;
 }
 /**
