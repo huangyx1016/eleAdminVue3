@@ -136,6 +136,15 @@ const routes: Array<RouteRecordRaw> = [
               title: "获取页面宽高", //获取当前页面的宽度和高度
             },
           },
+          {
+            path: "test",
+            name: "test",
+            component: () =>
+              import("@/views/commonComponentUseExample/test.vue"),
+            meta: {
+              title: "测试页面", //测试页面
+            },
+          },
         ],
       },
     ],
@@ -160,16 +169,16 @@ const router = createRouter({
 //router.getRoutes()：获取一个包含所有路由记录的数组
 // console.log("getRoutes", router.getRoutes());
 //动态添加路由 router.addRoute({path:"",name:"",component:()=>import()});
-router.addRoute({
-  path: "/test",
-  name: "test",
-  component: () => import("@/views/commonComponentUseExample/test.vue"),
-});
+// router.addRoute({
+//   path: "/test",
+//   name: "test",
+//   component: () => import("@/views/commonComponentUseExample/test.vue"),
+// });
 // console.log("getRoutes", router.getRoutes());
 //动态删除路由
 //1、可以添加一个name相同的路由来实现
 //2、 通过removeRoute('路由名称')
-router.removeRoute("test");
+// router.removeRoute("test");
 // console.log("getRoutes", router.getRoutes());
 
 //初始化路由的方法 setupRouter()  需要在main.ts中引入使用

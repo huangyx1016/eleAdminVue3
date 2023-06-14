@@ -134,6 +134,17 @@ export const routerList = [
         },
         fid: 8, //一级导航id
       },
+      {
+        id: 12, //自增id
+        path: "test", //路由路径
+        name: "test", //路由名称
+        component: "/commonExample/test", //组件位置
+        meta: {
+          icon: "EditPen", //图标
+          title: "测试页面", //导航文字
+        },
+        fid: 8, //一级导航id
+      },
     ],
     fid: "", //一级导航id
   },

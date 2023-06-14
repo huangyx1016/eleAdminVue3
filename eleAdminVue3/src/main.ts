@@ -7,6 +7,7 @@ import "@/assets/reset.css"; //重置样式表
 import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
 import "@/style/index.scss";
+import "element-plus/theme-chalk/display.css"; //Element Plus 额外提供了一系列类名，用于在某些条件下隐藏元素。 这些类名可以添加在任何 DOM 元素或自定义组件上。 如果需要，请自行引入以下文件：
 // import "./assets/main.css";
 //引入element-ui-plus图标
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";

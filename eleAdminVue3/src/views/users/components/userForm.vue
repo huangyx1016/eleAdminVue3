@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, nextTick } from "vue";
+import { ref, reactive, nextTick, onUnmounted } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
 import { ElMessage } from "element-plus";
 import { getUserById } from "@/api/user";
@@ -63,6 +63,7 @@ const getUserByIdHandle = async (id: number) => {
     form.value = res.data; //赋值数据用于回显    这里如果使用的是reactive定义的数据可以通过form.属性名来赋值,才不会有失去响应式的问题。
   }
 };
+console.log("props.id", props.id);
 //如果id存在就根据id查询用户信息 回显数据
 if (props.id) {
   getUserByIdHandle(props.id);
@@ -103,19 +104,27 @@ const resetForm = () => {
 
 //自定义校验密码
 const validatePass = (rule: any, value: any, callback: any) => {
-  console.log("rule", rule);
+  // console.log("rule", rule);
+  // console.log("rule.pattern", rule.pattern);
+  // console.log("pattern", Object.prototype.toString.call(rule.pattern));
+  // console.log("pattern", rule.pattern.test(value));
   if (value === "") {
+    //当值为空时的判断
     callback(new Error("请输入密码"));
   } else {
+    //值不为空的时候
     if (!rule.pattern.test(value)) {
+      //不符合正则表达式的时候
       callback(
         new Error(
           "密码必须包含大小写字母、数字、特殊符号中至少3种,并且长度不小于6"
         )
       );
     } else if (form.value.rePassword !== "") {
+      console.log("重复密码不为空");
       if (!formRef.value) return;
-      formRef.value.validateField("rePassword", () => null);
+      //验证表单的重复密码字段
+      formRef.value.validateField("rePassword", () => null); //validateField(); 验证表单具体某个字段
     }
     callback();
   }
@@ -123,9 +132,9 @@ const validatePass = (rule: any, value: any, callback: any) => {
 //自定义效验重复密码|再次输入密码
 const validateRePass = (rule: any, value: any, callback: any) => {
   if (value === "") {
-    callback(new Error("请再次输入密码"));
+    callback(new Error("请再次输入密码")); //再次输入密码空值提示
   } else if (value !== form.value.password) {
-    callback(new Error("两次输入密码不一致"));
+    callback(new Error("两次输入密码不一致")); //再次输入密码和密码不一致
   } else {
     callback();
   }
@@ -197,6 +206,10 @@ const rules = reactive<FormRules>({
 defineExpose({
   submitForm, //提交表单
   resetForm, //重置表单
+});
+
+onUnmounted(() => {
+  console.log("销毁");
 });
 </script>
 

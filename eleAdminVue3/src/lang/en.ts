@@ -30,5 +30,6 @@ export default {
     tree: "tree",
     transfer: "transfer",
     getScreenWidth: "getScreenWidth",
+    test: "test",
   },
 };

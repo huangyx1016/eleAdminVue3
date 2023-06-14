@@ -116,17 +116,16 @@
       @change="handleCurrentChange"
       @change-size="handleSizeChange"
     />
-    <!-- el-drawer 抽屉组件  el-drawer加上v-if 解决drawer组件内的子组件中的接口只调用一次的问题 -->
+    <!-- el-drawer 抽屉组件  el-drawer加上v-if 解决drawer组件内的子组件中的接口只调用一次的问题 (有瑕疵)-->
+    <!-- el-drawer 抽屉组件有个destroy-on-close属性控制是否在关闭 Drawer 之后将子元素全部销毁  默认false (设置destroy-on-close可以实现) -->
+    <!-- 注意：naive-ui中抽屉组件默认在关闭的时候会销毁里面的内容，而element-plus中的抽屉组件不会，必需设置destroy-on-close才行 -->
     <el-drawer
       v-model="modalData.showDrawer"
-      v-if="modalData.showDrawer"
       direction="rtl"
       :title="modalData.modalTitle"
       :close-on-click-modal="isShowDetail"
+      destroy-on-close
     >
-      <!-- <template #header>
-        <h4>标题</h4>
-      </template> -->
       <template #default>
         <userDetail v-if="isShowDetail" :id="modalData.data" />
         <userForm v-else ref="userFormRef" :id="modalData.data" />
@@ -138,6 +137,24 @@
         </div>
       </template>
     </el-drawer>
+
+    <!-- 使用dialog组件  注意：这里element-plus的dialog组件关闭时也是默认不销毁内部元素的,必须设置destroy-on-close才能实现dialog组件在关闭时销毁内部元素 -->
+    <!-- <el-dialog
+      v-model="modalData.showDrawer"
+      :title="modalData.modalTitle"
+      width="641px"
+      center
+      destroy-on-close
+    >
+      <userDetail v-if="isShowDetail" :id="modalData.data" />
+      <userForm v-else ref="userFormRef" :id="modalData.data" />
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="cancelClick">取消</el-button>
+          <el-button type="primary" @click="confirmClick"> 确定 </el-button>
+        </span>
+      </template>
+    </el-dialog> -->
 
     <el-dialog v-model="importDialogVisible" title="导入文件" width="30%">
       <el-row justify="center">
