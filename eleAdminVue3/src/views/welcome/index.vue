@@ -204,11 +204,12 @@
         >
           <el-input v-model="dynamicValidateForm.email" />
         </el-form-item> -->
+        <!-- 动态生成的表单项需要在行内写rules  prop需要设置:prop="'item.'+index+'.value'"  具体的触发方式、提示信息等需要放在行内rules-->
         <el-form-item
           v-for="(item, index) in dynamicValidateForm.domains"
           :key="item.key"
           :label="'Domain' + index"
-          :prop="'domains.' + index + '.value'"
+          :prop="'item.' + index + '.value'"
           :rules="{
             required: true,
             message: 'domains不能为空',
@@ -418,7 +419,7 @@ const formRef = ref<FormInstance>();
 type dynamicValidateFormType<T> = {
   domains: T[];
   email: string;
-};
+}; //动态表单类型
 interface DomainItem {
   key: number;
   value: string;
@@ -431,7 +432,7 @@ const dynamicValidateForm = reactive<dynamicValidateFormType<DomainItem>>({
     },
   ],
   email: "",
-}); //动态添加/删除表单
+}); //动态表单
 const addDomain = () => {
   dynamicValidateForm.domains.push({
     key: Date.now(),

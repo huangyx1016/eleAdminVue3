@@ -102,17 +102,17 @@ const resetForm = () => {
   });
 };
 
-//自定义校验密码
+//自定义校验密码  与naive-ui不同的是element-plus有个callback回调函数， 提示信息使用的是callback(new Error("请输入密码")); naive-ui使用的是return new Error();
 const validatePass = (rule: any, value: any, callback: any) => {
   // console.log("rule", rule);
   // console.log("rule.pattern", rule.pattern);
   // console.log("pattern", Object.prototype.toString.call(rule.pattern));
   // console.log("pattern", rule.pattern.test(value));
-  if (value === "") {
+  if (!value) {
     //当值为空时的判断
     callback(new Error("请输入密码"));
   } else {
-    //值不为空的时候
+    //值不为空的时候  正则表达式.test(value); 返回boolean值
     if (!rule.pattern.test(value)) {
       //不符合正则表达式的时候
       callback(
@@ -121,7 +121,6 @@ const validatePass = (rule: any, value: any, callback: any) => {
         )
       );
     } else if (form.value.rePassword !== "") {
-      console.log("重复密码不为空");
       if (!formRef.value) return;
       //验证表单的重复密码字段
       formRef.value.validateField("rePassword", () => null); //validateField(); 验证表单具体某个字段
@@ -131,10 +130,10 @@ const validatePass = (rule: any, value: any, callback: any) => {
 };
 //自定义效验重复密码|再次输入密码
 const validateRePass = (rule: any, value: any, callback: any) => {
-  if (value === "") {
+  if (!value) {
     callback(new Error("请再次输入密码")); //再次输入密码空值提示
   } else if (value !== form.value.password) {
-    callback(new Error("两次输入密码不一致")); //再次输入密码和密码不一致
+    callback(new Error("两次输入密码不一致")); //再次输入密码和密码不一致,两次密码输入不一致
   } else {
     callback();
   }
